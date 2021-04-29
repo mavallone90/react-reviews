@@ -1,12 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+// import App from './App';
 import reportWebVitals from './reportWebVitals';
+let Parser = require('rss-parser');
+let parser = new Parser();
+
+function RSS() { 
+
+  const [reviews, setReviews] = useState([])
+
+  useState(() => {
+      parser.parseURL('https://rss.nytimes.com/services/xml/rss/nyt/World.xml')
+        .then((response) => response.json())
+        .then(json => setReviews(json));
+  }, [])
+  return (
+    console.log(reviews, "Anything")
+  ); 
+}
+
+<RSS />
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <h1>Hello</h1>
   </React.StrictMode>,
   document.getElementById('root')
 );
